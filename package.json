@@ -1,0 +1,104 @@
+{
+  "name": "dev-chaos-sounds",
+  "displayName": "Dev Chaos Sounds",
+  "description": "Play fun sound effects when builds fail, tests pass, dev servers crash, and more.",
+  "version": "0.0.1",
+  "publisher": "dev-chaos-sounds",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "enabledApiProposals": ["terminalDataWriteEvent"],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devChaosSounds.toggle",
+        "title": "Dev Chaos Sounds: Toggle"
+      },
+      {
+        "command": "devChaosSounds.testSound",
+        "title": "Dev Chaos Sounds: Test Sound"
+      }
+    ],
+    "configuration": {
+      "title": "Dev Chaos Sounds",
+      "properties": {
+        "devChaosSounds.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable all sound effects."
+        },
+        "devChaosSounds.volume": {
+          "type": "number",
+          "default": 0.5,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Playback volume (0.0 = silent, 1.0 = full)."
+        },
+        "devChaosSounds.failSounds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [
+            "./sounds/faaah.mp3"
+          ],
+          "description": "Sound URLs or local paths for build/task failure."
+        },
+        "devChaosSounds.successSounds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [
+            "./sounds/tada-fanfare.mp3"
+          ],
+          "description": "Sound URLs or local paths for build/task success."
+        },
+        "devChaosSounds.testFailSounds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Sound URLs or local paths for test failure detection."
+        },
+        "devChaosSounds.testSuccessSounds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Sound URLs or local paths for test success detection."
+        },
+        "devChaosSounds.lintErrorSounds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Sound URLs or local paths for lint errors appearing."
+        },
+        "devChaosSounds.serverCrashSounds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Sound URLs or local paths for dev server crashes."
+        },
+        "devChaosSounds.cooldownMs": {
+          "type": "number",
+          "default": 3000,
+          "minimum": 0,
+          "description": "Minimum milliseconds between consecutive sounds to prevent spam."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.93.0",
+    "typescript": "^5.3.0"
+  }
+}
